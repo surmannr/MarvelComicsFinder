@@ -1,0 +1,33 @@
+package hu.bme.aut.android.marvelcomicsfinder.data.entites
+
+data class FavouriteMarvelComicsEntity(
+    val characters: CharactersEntity,
+    val collectedIssues: List<CollectedIssueEntity>,
+    val collections: List<CollectionEntity>,
+    val creators: CreatorsEntity,
+    val dates: List<DateEntity>,
+    val description: String,
+    val diamondCode: String,
+    val digitalId: String,
+    val ean: String,
+    val events: EventsEntity,
+    val format: String,
+    val id: String,
+    val images: List<ImageEntity>,
+    val isbn: String,
+    val issn: String,
+    val issueNumber: String,
+    val modified: String,
+    val pageCount: String,
+    val prices: List<PriceEntity>,
+    val resourceURI: String,
+    val series: SeriesEntity,
+    val stories: StoriesEntity,
+    val textObjects: List<TextObjectEntity>,
+    val thumbnail: ThumbnailEntity,
+    val title: String,
+    val upc: String,
+    val urls: List<UrlEntity>,
+    val variantDescription: String,
+    val variants: List<VariantEntity>
+)
