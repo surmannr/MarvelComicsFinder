@@ -14,6 +14,12 @@ import hu.bme.aut.android.marvelcomicsfinder.feature.favmarvelcomics.list.FavMar
 import hu.bme.aut.android.marvelcomicsfinder.feature.favmarvelcomics.random.RandomFavMarvelComicScreen
 import hu.bme.aut.android.marvelcomicsfinder.feature.marvelcomics.details.MarvelComicScreen
 import hu.bme.aut.android.marvelcomicsfinder.feature.marvelcomics.list.MarvelComicsScreen
+import androidx.hilt.navigation.compose.hiltViewModel
+import hu.bme.aut.android.marvelcomicsfinder.feature.favmarvelcomics.details.FavMarvelComicViewModel
+import hu.bme.aut.android.marvelcomicsfinder.feature.favmarvelcomics.list.FavMarvelComicsViewModel
+import hu.bme.aut.android.marvelcomicsfinder.feature.favmarvelcomics.random.RandomFavMarvelComicViewModel
+import hu.bme.aut.android.marvelcomicsfinder.feature.marvelcomics.details.MarvelComicViewModel
+import hu.bme.aut.android.marvelcomicsfinder.feature.marvelcomics.list.MarvelComicsViewModel
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalComposeUiApi::class)
 @Composable
@@ -25,9 +31,8 @@ fun NavGraph(
         startDestination = Screen.MarvelComicsList.route
     ) {
         composable(Screen.MarvelComicsList.route) {
-            MarvelComicsScreen(
-
-            )
+            val viewModel = hiltViewModel<MarvelComicsViewModel>()
+            MarvelComicsScreen(viewModel)
         }
         composable(
             route = Screen.MarvelComicDetail.route,
@@ -37,14 +42,12 @@ fun NavGraph(
                 }
             )
         ) {
-            MarvelComicScreen(
-
-            )
+            val viewModel = hiltViewModel<MarvelComicViewModel>()
+            MarvelComicScreen(viewModel)
         }
         composable(Screen.FavMarvelComicsList.route) {
-            FavMarvelComicsScreen(
-
-            )
+            val viewModel = hiltViewModel<FavMarvelComicsViewModel>()
+            FavMarvelComicsScreen(viewModel)
         }
         composable(
             route = Screen.FavMarvelComicDetail.route,
@@ -54,14 +57,12 @@ fun NavGraph(
                 }
             )
         ) {
-            FavMarvelComicScreen(
-
-            )
+            val viewModel = hiltViewModel<FavMarvelComicViewModel>()
+            FavMarvelComicScreen(viewModel)
         }
         composable(Screen.RandomFavMarvelComic.route) {
-            RandomFavMarvelComicScreen(
-
-            )
+            val viewModel = hiltViewModel<RandomFavMarvelComicViewModel>()
+            RandomFavMarvelComicScreen(viewModel)
         }
     }
 }
