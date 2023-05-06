@@ -17,6 +17,6 @@ interface MarvelComicsServiceImpl : MarvelComicsService{
     ): Response<PagedData>
 
     @GET("v1/public/comics/{comicId}")
-    override suspend fun getMarvelComicById(@Path("comicId") comicId: String): Response<MarvelComics>
+    override suspend fun getMarvelComicById(@Path("comicId") comicId: String): Response<PagedData>
 
 }

@@ -14,7 +14,7 @@ class MarvelComicsServiceMock : MarvelComicsService {
         TODO("Not yet implemented")
     }
 
-    override suspend fun getMarvelComicById(id: String): Response<MarvelComics> {
+    override suspend fun getMarvelComicById(id: String): Response<PagedData> {
         TODO("Not yet implemented")
     }
 }
