@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface FavouriteMarvelComicsDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertMarvelComic()
+    suspend fun insertMarvelComic(entity :FavouriteMarvelComicsEntity)
 
     @Query("DELETE FROM favourite_marvelcomics WHERE id = :id")
     suspend fun deleteMarvelComic(id: String)
