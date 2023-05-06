@@ -19,7 +19,7 @@ object PersistenceModule {
 
     @Singleton
     @Provides
-    fun bindMarvelComicsRepository(
+    fun provideMarvelComicsRepository(
         marvelComicsDb: FavouriteMarvelComicsDatabase
     ): FavouriteMarvelComicsRepository {
         return FavouriteMarvelComicsRepositoryImp(marvelComicsDb.favouriteMarvelComicsDao)
