@@ -29,11 +29,16 @@ object NetworkModule {
 
     @Singleton
     @Provides
-    fun providesOkHttpClient(apiInterceptor: ApiInterceptor): OkHttpClient =
-        OkHttpClient
+    fun providesOkHttpClient(apiInterceptor: ApiInterceptor): OkHttpClient {
+        val interceptor: HttpLoggingInterceptor = HttpLoggingInterceptor();
+        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+        return OkHttpClient
             .Builder()
             .addInterceptor(apiInterceptor)
+            .addInterceptor(interceptor)
             .build()
+    }
+
 
     @Singleton
     @Provides

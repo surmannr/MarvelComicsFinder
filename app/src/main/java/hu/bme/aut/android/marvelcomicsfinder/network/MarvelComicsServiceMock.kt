@@ -1,8 +1,7 @@
 package hu.bme.aut.android.marvelcomicsfinder.network
 
-import hu.bme.aut.android.marvelcomicsfinder.domain.models.MarvelComics
-import hu.bme.aut.android.marvelcomicsfinder.domain.models.PagedData
-import retrofit2.Response
+import hu.bme.aut.android.marvelcomicsfinder.domain.models.MarvelResponse
+import retrofit2.Call
 
 class MarvelComicsServiceMock : MarvelComicsService {
     override suspend fun getMarvelComics(
@@ -10,11 +9,11 @@ class MarvelComicsServiceMock : MarvelComicsService {
         startYear: String?,
         offset: String,
         limit: String
-    ): Response<PagedData> {
+    ): MarvelResponse {
         TODO("Not yet implemented")
     }
 
-    override suspend fun getMarvelComicById(id: String): Response<PagedData> {
+    override suspend fun getMarvelComicById(id: String): MarvelResponse {
         TODO("Not yet implemented")
     }
 }

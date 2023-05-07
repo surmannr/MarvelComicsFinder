@@ -1,18 +1,17 @@
 package hu.bme.aut.android.marvelcomicsfinder.domain.usecases.marvelcomics
 
-import hu.bme.aut.android.marvelcomicsfinder.domain.models.MarvelComics
+import android.util.Log
+import hu.bme.aut.android.marvelcomicsfinder.domain.models.MarvelResponse
 import hu.bme.aut.android.marvelcomicsfinder.domain.models.PagedData
 import hu.bme.aut.android.marvelcomicsfinder.network.MarvelComicsService
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.io.IOException
 
 class LoadMarvelComicUseCase(private val marvelComicsService: MarvelComicsService) {
 
-    suspend operator fun invoke(id: String): Result<PagedData?> {
-        return try {
-            val marvelComics = marvelComicsService.getMarvelComicById(id).body()
-            Result.success(marvelComics)
-        } catch (e: IOException) {
-            Result.failure(e)
-        }
+    suspend operator fun invoke(id: String): PagedData? {
+        return marvelComicsService.getMarvelComicById(id).data
     }
 }
