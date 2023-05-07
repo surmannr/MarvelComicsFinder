@@ -32,7 +32,9 @@ fun NavGraph(
     ) {
         composable(Screen.MarvelComicsList.route) {
             val viewModel = hiltViewModel<MarvelComicsViewModel>()
-            MarvelComicsScreen(viewModel)
+            MarvelComicsScreen(onListItemClick = {
+                navController.navigate(Screen.MarvelComicDetail.passId(it))
+            },viewModel)
         }
         composable(
             route = Screen.MarvelComicDetail.route,

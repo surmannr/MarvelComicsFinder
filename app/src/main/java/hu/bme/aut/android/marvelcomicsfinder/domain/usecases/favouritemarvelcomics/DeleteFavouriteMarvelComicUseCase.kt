@@ -4,6 +4,6 @@ import hu.bme.aut.android.marvelcomicsfinder.data.repositories.FavouriteMarvelCo
 
 class DeleteFavouriteMarvelComicUseCase(private val marvelComicsRepository: FavouriteMarvelComicsRepository) {
     suspend operator fun invoke(id: String) {
-        throw NotImplementedError()
+        marvelComicsRepository.deleteMarvelComic(id)
     }
 }
