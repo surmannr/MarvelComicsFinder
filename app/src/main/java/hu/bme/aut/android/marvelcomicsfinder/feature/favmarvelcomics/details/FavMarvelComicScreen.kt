@@ -9,15 +9,21 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.navigation.NavController
+import hu.bme.aut.android.marvelcomicsfinder.ui.common.BottomBar
 
 @ExperimentalMaterial3Api
 @Composable
 fun FavMarvelComicScreen(
-    viewModel: FavMarvelComicViewModel
+    viewModel: FavMarvelComicViewModel,
+    navController: NavController
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
     Scaffold(
         modifier = Modifier.fillMaxSize(),
+        bottomBar = {
+            BottomBar(navController)
+        },
     ) {
         Text(
             text = "teszt",

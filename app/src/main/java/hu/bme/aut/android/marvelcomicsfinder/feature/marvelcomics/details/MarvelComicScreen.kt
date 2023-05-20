@@ -21,6 +21,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.navigation.NavController
+import hu.bme.aut.android.marvelcomicsfinder.ui.common.BottomBar
 import hu.bme.aut.android.marvelcomicsfinder.ui.common.MarvelAppBar
 import hu.bme.aut.android.marvelcomicsfinder.ui.model.MarvelComicDetailUI
 
@@ -29,10 +31,14 @@ import hu.bme.aut.android.marvelcomicsfinder.ui.model.MarvelComicDetailUI
 fun MarvelComicScreen(
     viewModel: MarvelComicViewModel,
     onNavigateBack: () -> Unit,
+    navController: NavController
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
     Scaffold(
         modifier = Modifier.fillMaxSize(),
+        bottomBar = {
+            BottomBar(navController)
+        },
         topBar = {
             MarvelAppBar(
                 title = "Marvel képregény részletek",

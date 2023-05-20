@@ -37,7 +37,10 @@ import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import hu.bme.aut.android.marvelcomicsfinder.R
+import hu.bme.aut.android.marvelcomicsfinder.ui.common.BottomBar
 import hu.bme.aut.android.marvelcomicsfinder.ui.common.MarvelAppBar
 import hu.bme.aut.android.marvelcomicsfinder.ui.common.MarvelComicElementUi
 import hu.bme.aut.android.marvelcomicsfinder.ui.common.MarvelListFilterUi
@@ -50,7 +53,8 @@ import me.saket.swipe.SwipeableActionsState
 @Composable
 fun MarvelComicsScreen(
     onListItemClick: (String) -> Unit,
-    viewModel: MarvelComicsViewModel
+    viewModel: MarvelComicsViewModel,
+    navController: NavController
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
 
@@ -62,6 +66,9 @@ fun MarvelComicsScreen(
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         containerColor = MaterialTheme.colorScheme.background,
+        bottomBar = {
+            BottomBar(navController)
+        },
         topBar = {
                     MarvelAppBar(
                         title = "Marvel képregénykereső",

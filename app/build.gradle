@@ -110,6 +110,7 @@ dependencies {
 
     // Swipeable
     implementation "me.saket.swipe:swipe:1.1.1"
+
 }
 
 // Allow references to generated code
