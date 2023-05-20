@@ -47,7 +47,7 @@ fun NavGraph(
             )
         ) {
             val viewModel = hiltViewModel<MarvelComicViewModel>()
-            MarvelComicScreen(viewModel)
+            MarvelComicScreen(viewModel, onNavigateBack = {navController.popBackStack()})
         }
         composable(Screen.FavMarvelComicsList.route) {
             val viewModel = hiltViewModel<FavMarvelComicsViewModel>()

@@ -61,6 +61,7 @@ fun MarvelComicsScreen(
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),
+        containerColor = MaterialTheme.colorScheme.background,
         topBar = {
                     MarvelAppBar(
                         title = "Marvel képregénykereső",
@@ -79,14 +80,7 @@ fun MarvelComicsScreen(
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(it)
-                .background(
-                    color = if (!state.isLoading && !state.isError) {
-                        MaterialTheme.colorScheme.secondaryContainer
-                    } else {
-                        MaterialTheme.colorScheme.background
-                    }
-                ),
+                .padding(it),
         ){
             when {
                 state.isLoading -> {

@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -36,7 +37,10 @@ fun MarvelPagerButtons(
                 .padding(5.dp),
             enabled = !disablePrevButton
         ) {
-            Text(text = "Előző oldal")
+            Text(
+                text = "Előző oldal",
+                color = MaterialTheme.colorScheme.secondary)
+
         }
         Button(
             onClick = nextPage,
@@ -46,7 +50,10 @@ fun MarvelPagerButtons(
                 .padding(5.dp),
             enabled = !disableNextButton
         ) {
-            Text(text = "Következő oldal")
+            Text(
+                text = "Következő oldal",
+                color = MaterialTheme.colorScheme.secondary
+            )
         }
     }
 }

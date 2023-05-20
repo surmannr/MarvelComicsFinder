@@ -19,7 +19,9 @@ import androidx.core.view.WindowCompat
 private val DarkColorScheme = darkColorScheme(
     primary = Color(0xFF960202),
     secondary = Color.White,
-    tertiary = Color.Black
+    tertiary = Color.Black,
+    background = Color(0xFF121212),
+    surface = Color(0xFF241919),
 )
 
 private val LightColorScheme = lightColorScheme(
@@ -45,11 +47,7 @@ fun MarvelComicsFinderTheme(
     dynamicColor: Boolean = true,
     content: @Composable () -> Unit
 ) {
-    val colorScheme = when {
-
-        darkTheme -> DarkColorScheme
-        else -> LightColorScheme
-    }
+    val colorScheme = DarkColorScheme
     val view = LocalView.current
     if (!view.isInEditMode) {
         SideEffect {
