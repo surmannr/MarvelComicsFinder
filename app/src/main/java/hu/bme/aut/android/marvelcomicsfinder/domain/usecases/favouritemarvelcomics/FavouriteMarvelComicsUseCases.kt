@@ -8,4 +8,5 @@ class FavouriteMarvelComicsUseCases @Inject constructor(private val marvelComics
     val loadFavouriteMarvelComics = LoadFavouriteMarvelComicsUseCase(marvelComicsRepository)
     val saveFavouriteMarvelComics = SaveFavouriteMarvelComicUseCase(marvelComicsRepository)
     val deleteFavouriteMarvelComics = DeleteFavouriteMarvelComicUseCase(marvelComicsRepository)
+    val randomFavouriteMarvelComics = RandomFavouriteMarvelComicUseCase(marvelComicsRepository)
 }
