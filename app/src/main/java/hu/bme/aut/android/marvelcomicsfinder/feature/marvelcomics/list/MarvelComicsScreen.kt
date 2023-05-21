@@ -198,7 +198,7 @@ fun MarvelComicsScreen(
                         prevPage = {
                             viewModel.onEvent(MarvelComicsEvent.PrevPage(titleStartWithValue, startYearValue))
                         },
-                        disableNextButton = state.pageCount == state.maxPageCount,
+                        disableNextButton = state.pageCount >= state.maxPageCount,
                         disablePrevButton = state.pageCount == 1,
                     )
                 }

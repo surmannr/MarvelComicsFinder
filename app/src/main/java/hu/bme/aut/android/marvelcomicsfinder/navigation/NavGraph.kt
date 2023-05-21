@@ -76,6 +76,7 @@ fun NavGraph(
             val viewModel = hiltViewModel<FavMarvelComicViewModel>()
             FavMarvelComicScreen(
                 viewModel,
+                onNavigateBack = {navController.popBackStack()},
                 navController
             )
         }
