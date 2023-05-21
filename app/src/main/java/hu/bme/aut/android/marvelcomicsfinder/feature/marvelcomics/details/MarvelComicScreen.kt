@@ -161,7 +161,7 @@ fun MarvelComicScreen(
                             onButtonClick = {
                                 dialogOpen = true
                             },
-                            buttonText = if (state.isInFavouriteList) "Kedvencekhez adás" else "Törlés a kedvencek közül"
+                            buttonText = if (!state.isInFavouriteList) "Kedvencekhez adás" else "Törlés a kedvencek közül"
                         )
                     }
 
