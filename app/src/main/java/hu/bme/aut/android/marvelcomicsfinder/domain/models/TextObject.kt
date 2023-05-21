@@ -9,9 +9,9 @@ data class TextObject(
 )
 
 fun TextObjectEntity.asTextObject(): TextObject = TextObject(
-    text = text,
-    type = type,
-    language = language
+    text = text ?: "",
+    type = type ?: "",
+    language = language ?: "",
 )
 
 fun TextObject.asTextObjectEntity(): TextObjectEntity = TextObjectEntity(

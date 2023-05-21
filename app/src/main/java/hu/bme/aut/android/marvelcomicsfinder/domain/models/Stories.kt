@@ -10,10 +10,10 @@ data class Stories(
 )
 
 fun StoriesEntity.asStories(): Stories = Stories(
-    available = available,
-    collectionURI = collectionURI,
+    available = available ?: "",
+    collectionURI = collectionURI ?: "",
     items = items.map { it -> it.asItemXXX() },
-    returned = returned
+    returned = returned ?: "",
 )
 
 fun Stories.asStoriesEntity(): StoriesEntity = StoriesEntity(

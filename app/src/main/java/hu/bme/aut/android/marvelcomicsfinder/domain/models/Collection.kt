@@ -8,8 +8,8 @@ data class Collection(
 )
 
 fun CollectionEntity.asCollection(): Collection = Collection(
-    name = name,
-    resourceURI = resourceURI
+    name = name ?: "",
+    resourceURI = resourceURI ?: "",
 )
 
 fun Collection.asCollectionEntity(): CollectionEntity = CollectionEntity(

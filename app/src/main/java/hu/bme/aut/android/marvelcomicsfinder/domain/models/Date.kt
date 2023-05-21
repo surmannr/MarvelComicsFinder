@@ -8,8 +8,8 @@ data class Date(
 )
 
 fun DateEntity.asDate(): Date = Date(
-    date = date,
-    type = type
+    date = date ?: "",
+    type = type ?: "",
 )
 
 fun Date.asDateEntity(): DateEntity = DateEntity(
