@@ -101,7 +101,12 @@ fun MarvelComicScreen(
                 confirmButton = {
                     TextButton(
                         onClick = {
-                            viewModel.addFavourite(state.marvelComic!!)
+                            if (state.isInFavouriteList) {
+                                viewModel.removeFavourite(state.marvelComic!!)
+                            } else {
+                                viewModel.addFavourite(state.marvelComic!!)
+                            }
+
                             navController.navigate(Screen.MarvelComicsList.route)
                             dialogOpen = false
                         }
@@ -156,7 +161,7 @@ fun MarvelComicScreen(
                             onButtonClick = {
                                 dialogOpen = true
                             },
-                            buttonText = "Kedvencekhez adás"
+                            buttonText = if (state.isInFavouriteList) "Kedvencekhez adás" else "Törlés a kedvencek közül"
                         )
                     }
 

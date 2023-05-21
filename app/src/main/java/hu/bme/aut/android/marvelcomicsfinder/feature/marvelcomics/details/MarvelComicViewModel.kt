@@ -33,9 +33,10 @@ class MarvelComicViewModel @Inject constructor(private val marvelComicsOperation
             _state.update { it.copy(isLoading = true) }
             try {
                 val marvelComics = marvelComicsOperations.loadMarvelComic(marvelComicId)
-
+                val isInFav = favMarvelComicOperation.loadFavouriteMarvelComic(marvelComicId).getOrNull()
                 _state.update { it.copy(
                     isLoading = false,
+                    isInFavouriteList = isInFav != null,
                     marvelComic = marvelComics?.results?.get(0)
                 ) }
 
@@ -55,6 +56,19 @@ class MarvelComicViewModel @Inject constructor(private val marvelComicsOperation
                 _uiEvent.send(UiEvent.Success("Sikeresen a kedvencek közé adtad: ${comic.title}"))
             } catch (e: Exception) {
                 _uiEvent.send(UiEvent.Success("Hiba történt a kedvencekhez adáskor: ${comic.title}"))
+                print(e.printStackTrace())
+            }
+
+        }
+    }
+
+    fun removeFavourite(comic: MarvelComics) {
+        viewModelScope.launch {
+            try {
+                favMarvelComicOperation.deleteFavouriteMarvelComics(comic.id)
+                _uiEvent.send(UiEvent.Success("Sikeresen törölted: ${comic.title}"))
+            } catch (e: Exception) {
+                _uiEvent.send(UiEvent.Success("Hiba történt a törléskor: ${comic.title}"))
                 print(e.printStackTrace())
             }
 

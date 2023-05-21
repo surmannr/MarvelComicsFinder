@@ -51,9 +51,9 @@ class FavMarvelComicViewModel @Inject constructor(private val favMarvelComicsOpr
         viewModelScope.launch {
             try {
                 favMarvelComicsOpretions.deleteFavouriteMarvelComics(comic.id)
-                _uiEvent.send(UiEvent.Success("Sikeresen a kedvencek közé adtad: ${comic.title}"))
+                _uiEvent.send(UiEvent.Success("Sikeresen törölted: ${comic.title}"))
             } catch (e: Exception) {
-                _uiEvent.send(UiEvent.Success("Hiba történt a kedvencekhez adáskor: ${comic.title}"))
+                _uiEvent.send(UiEvent.Success("Hiba történt a törléskor: ${comic.title}"))
                 print(e.printStackTrace())
             }
 

@@ -6,5 +6,6 @@ data class MarvelComicState(
     val isLoading: Boolean = false,
     val error: Throwable? = null,
     val isError: Boolean = error != null,
-    val marvelComic: MarvelComics? = null
+    val marvelComic: MarvelComics? = null,
+    val isInFavouriteList: Boolean = false,
 )
