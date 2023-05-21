@@ -8,8 +8,8 @@ data class Thumbnail(
 )
 
 fun ThumbnailEntity.asThumbnail(): Thumbnail = Thumbnail(
-    extension = extension,
-    path = path
+    extension = extension ?: "",
+    path = path ?: "",
 )
 
 fun Thumbnail.asThumbnailEntity(): ThumbnailEntity = ThumbnailEntity(

@@ -8,8 +8,8 @@ data class Url(
 )
 
 fun UrlEntity.asUrl(): Url = Url(
-    type = type,
-    url = url
+    type = type ?: "",
+    url = url ?: "",
 )
 
 fun Url.asUrlEntity(): UrlEntity = UrlEntity(

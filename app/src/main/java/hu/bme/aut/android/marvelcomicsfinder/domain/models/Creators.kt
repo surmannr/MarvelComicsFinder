@@ -10,10 +10,10 @@ data class Creators(
 )
 
 fun CreatorsEntity.asCreators(): Creators = Creators(
-    available = available,
-    collectionURI = collectionURI,
+    available = available ?: "",
+    collectionURI = collectionURI ?: "",
     items = items.map { it -> it.asItem() },
-    returned = returned
+    returned = returned ?: "",
 )
 
 fun Creators.asCreatorsEntity(): CreatorsEntity = CreatorsEntity(

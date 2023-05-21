@@ -8,8 +8,8 @@ data class CollectedIssue(
 )
 
 fun CollectedIssueEntity.asCollectedIssue(): CollectedIssue = CollectedIssue(
-    name = name,
-    resourceURI = resourceURI
+    name = name ?: "",
+    resourceURI = resourceURI ?: "",
 )
 
 fun CollectedIssue.asCollectedIssueEntity(): CollectedIssueEntity = CollectedIssueEntity(

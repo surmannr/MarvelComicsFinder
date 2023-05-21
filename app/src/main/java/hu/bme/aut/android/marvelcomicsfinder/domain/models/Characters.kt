@@ -10,10 +10,10 @@ data class Characters(
 )
 
 fun CharactersEntity.asCharacters(): Characters = Characters(
-    available = available,
-    collectionURI = collectionURI,
+    available = available ?: "",
+    collectionURI = collectionURI?: "",
     items = items.map { it -> it.asItem() },
-    returned = returned
+    returned = returned ?: "",
 )
 
 fun Characters.asCharactersEntity(): CharactersEntity = CharactersEntity(

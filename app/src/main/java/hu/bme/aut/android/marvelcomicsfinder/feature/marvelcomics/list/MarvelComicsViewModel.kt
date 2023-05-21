@@ -3,20 +3,30 @@ package hu.bme.aut.android.marvelcomicsfinder.feature.marvelcomics.list
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import hu.bme.aut.android.marvelcomicsfinder.domain.usecases.favouritemarvelcomics.FavouriteMarvelComicsUseCases
 import hu.bme.aut.android.marvelcomicsfinder.domain.usecases.marvelcomics.MarvelComicsUseCases
+import hu.bme.aut.android.marvelcomicsfinder.ui.model.UiEvent
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class MarvelComicsViewModel @Inject constructor(private val marvelComicsOperations: MarvelComicsUseCases) : ViewModel() {
+class MarvelComicsViewModel @Inject constructor(
+        private val marvelComicsOperations: MarvelComicsUseCases,
+        private val favMarvelComicOperation: FavouriteMarvelComicsUseCases
+    ) : ViewModel() {
 
     private val _state = MutableStateFlow(MarvelComicsState())
     val state = _state.asStateFlow()
+
+    private val _uiEvent = Channel<UiEvent>()
+    val uiEvent = _uiEvent.receiveAsFlow()
 
     init {
         loadMarvelComicsFromApi()
@@ -79,6 +89,19 @@ class MarvelComicsViewModel @Inject constructor(private val marvelComicsOperatio
                     }
                 }
                 filterMarvelComicsFromApi(event.title, event.year)
+            }
+
+            is MarvelComicsEvent.AddFavourite -> {
+                viewModelScope.launch {
+                    try {
+                        favMarvelComicOperation.saveFavouriteMarvelComics(event.marvelComics)
+                        _uiEvent.send(UiEvent.Success("Sikeresen a kedvencek közé adtad: ${event.marvelComics.title}"))
+                    } catch (e: Exception) {
+                        _uiEvent.send(UiEvent.Success("Hiba történt a kedvencekhez adáskor: ${event.marvelComics.title}"))
+                        print(e.printStackTrace())
+                    }
+
+                }
             }
         }
     }

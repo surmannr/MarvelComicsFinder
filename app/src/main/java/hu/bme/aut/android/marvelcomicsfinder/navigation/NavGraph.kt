@@ -59,7 +59,10 @@ fun NavGraph(
             val viewModel = hiltViewModel<FavMarvelComicsViewModel>()
             FavMarvelComicsScreen(
                 viewModel,
-                navController
+                navController,
+                onListItemClick = {
+                    navController.navigate(Screen.FavMarvelComicDetail.passId(it))
+                },
             )
         }
         composable(
