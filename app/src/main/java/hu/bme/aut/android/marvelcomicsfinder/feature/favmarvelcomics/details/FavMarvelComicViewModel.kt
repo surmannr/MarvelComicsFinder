@@ -4,9 +4,13 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import hu.bme.aut.android.marvelcomicsfinder.domain.models.MarvelComics
 import hu.bme.aut.android.marvelcomicsfinder.domain.usecases.favouritemarvelcomics.FavouriteMarvelComicsUseCases
+import hu.bme.aut.android.marvelcomicsfinder.ui.model.UiEvent
+import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -15,6 +19,10 @@ import javax.inject.Inject
 class FavMarvelComicViewModel @Inject constructor(private val favMarvelComicsOpretions: FavouriteMarvelComicsUseCases, private val savedState: SavedStateHandle) : ViewModel() {
     private val _state = MutableStateFlow(FavMarvelComicState())
     val state = _state.asStateFlow()
+
+    private val _uiEvent = Channel<UiEvent>()
+    val uiEvent = _uiEvent.receiveAsFlow()
+
     init {
         loadMarvelComicByIdFromDb()
     }
@@ -36,6 +44,19 @@ class FavMarvelComicViewModel @Inject constructor(private val favMarvelComicsOpr
                     error = e
                 ) }
             }
+        }
+    }
+
+    fun removeFavourite(comic: MarvelComics) {
+        viewModelScope.launch {
+            try {
+                favMarvelComicsOpretions.deleteFavouriteMarvelComics(comic.id)
+                _uiEvent.send(UiEvent.Success("Sikeresen a kedvencek közé adtad: ${comic.title}"))
+            } catch (e: Exception) {
+                _uiEvent.send(UiEvent.Success("Hiba történt a kedvencekhez adáskor: ${comic.title}"))
+                print(e.printStackTrace())
+            }
+
         }
     }
 }

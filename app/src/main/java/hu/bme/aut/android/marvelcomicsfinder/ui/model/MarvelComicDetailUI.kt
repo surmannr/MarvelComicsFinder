@@ -17,6 +17,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -45,7 +46,8 @@ import kotlin.text.Typography.bullet
 @Composable
 fun MarvelComicDetailUI(
     comic: MarvelComics,
-    onFavClick: () -> Unit,
+    onButtonClick: (() -> Unit)?,
+    buttonText: String = "",
     modifier: Modifier = Modifier,
 ) {
     Column(
@@ -115,6 +117,22 @@ fun MarvelComicDetailUI(
             title = "Kapcsolódó képregények",
             items = comic.variants.map { item -> item.name }
         )
+
+        if (onButtonClick != null) {
+            Button(
+                onClick = onButtonClick,
+                shape = RoundedCornerShape(10),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(5.dp),
+                enabled = true
+            ) {
+                Text(
+                    text = buttonText,
+                    color = MaterialTheme.colorScheme.secondary)
+
+            }
+        }
     }
 }
 

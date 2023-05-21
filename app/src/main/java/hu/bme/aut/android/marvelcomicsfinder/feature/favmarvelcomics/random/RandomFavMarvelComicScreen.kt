@@ -79,7 +79,7 @@ fun RandomFavMarvelComicScreen(
                         }
                         MarvelComicDetailUI(
                             comic = state.randomMarvelComic!!,
-                            onFavClick = {}
+                            onButtonClick = null
                         )
                     }
                 }
