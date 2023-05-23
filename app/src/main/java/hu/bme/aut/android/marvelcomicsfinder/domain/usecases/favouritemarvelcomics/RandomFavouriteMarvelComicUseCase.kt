@@ -4,14 +4,16 @@ import hu.bme.aut.android.marvelcomicsfinder.data.repositories.FavouriteMarvelCo
 import hu.bme.aut.android.marvelcomicsfinder.domain.models.MarvelComics
 import hu.bme.aut.android.marvelcomicsfinder.domain.models.asFavouriteMarvelComicsEntity
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.firstOrNull
 import java.io.IOException
 
-class LoadFavouriteMarvelComicUseCase(private val marvelComicsRepository: FavouriteMarvelComicsRepository) {
-    suspend operator fun invoke(id: String): Result<MarvelComics?> {
+class RandomFavouriteMarvelComicUseCase(private val marvelComicsRepository: FavouriteMarvelComicsRepository) {
+
+    suspend operator fun invoke(): Result<MarvelComics> {
         return try {
-            Result.success(marvelComicsRepository.getMarvelComicById(id).firstOrNull()
-                ?.asFavouriteMarvelComicsEntity())
+            val marvelComics = marvelComicsRepository.getAllMarvelComics(null, null).first()
+            Result.success(
+                marvelComics.random().asFavouriteMarvelComicsEntity()
+            )
         } catch (e: IOException) {
             Result.failure(e)
         }

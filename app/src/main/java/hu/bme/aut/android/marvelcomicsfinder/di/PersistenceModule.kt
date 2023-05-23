@@ -33,6 +33,7 @@ object PersistenceModule {
             appContext,
             FavouriteMarvelComicsDatabase::class.java,
             "favourite_marvelcomics"
-        ).build()
+        )
+        .fallbackToDestructiveMigration().build()
     }
 }

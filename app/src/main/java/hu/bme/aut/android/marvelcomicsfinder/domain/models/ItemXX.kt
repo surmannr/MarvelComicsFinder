@@ -8,8 +8,8 @@ data class ItemXX(
 )
 
 fun ItemXXEntity.asItemXX(): ItemXX = ItemXX(
-    name = name,
-    resourceURI = resourceURI
+    name = name ?: "",
+    resourceURI = resourceURI ?: "",
 )
 
 fun ItemXX.asItemXXEntity(): ItemXXEntity = ItemXXEntity(

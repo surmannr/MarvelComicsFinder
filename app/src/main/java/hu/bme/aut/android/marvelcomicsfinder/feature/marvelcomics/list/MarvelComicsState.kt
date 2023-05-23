@@ -9,5 +9,7 @@ data class MarvelComicsState(
     val isError: Boolean = error != null,
     val offset: String = "0",
     val limit: String = "20",
+    val pageCount: Int = 1,
+    val maxPageCount: Int = 1,
     val marvelComicsList: List<MarvelComics> = emptyList()
 )

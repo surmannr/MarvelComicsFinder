@@ -8,8 +8,8 @@ data class Variant(
 )
 
 fun VariantEntity.asVariant(): Variant = Variant(
-    name = name,
-    resourceURI = resourceURI
+    name = name ?: "",
+    resourceURI = resourceURI ?: "",
 )
 
 fun Variant.asVariantEntity(): VariantEntity = VariantEntity(

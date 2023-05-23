@@ -9,9 +9,9 @@ data class Item(
 )
 
 fun ItemEntity.asItem(): Item = Item(
-    name = name,
-    resourceURI = resourceURI,
-    role = role
+    name = name ?: "",
+    resourceURI = resourceURI ?: "",
+    role = role ?: "",
 )
 
 fun Item.asItemEntity(): ItemEntity = ItemEntity(

@@ -10,10 +10,10 @@ data class Events(
 )
 
 fun EventsEntity.asEvents(): Events = Events(
-    available = available,
-    collectionURI = collectionURI,
+    available = available ?: "",
+    collectionURI = collectionURI ?: "",
     items = items.map { it -> it.asItemXX() },
-    returned = returned
+    returned = returned ?: "",
 )
 
 fun Events.asEventsEntity(): EventsEntity = EventsEntity(

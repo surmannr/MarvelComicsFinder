@@ -8,8 +8,8 @@ data class Price(
 )
 
 fun PriceEntity.asPrice(): Price = Price(
-    price = price,
-    type = type
+    price = price ?: "",
+    type = type ?: "",
 )
 
 fun Price.asPriceEntity(): PriceEntity = PriceEntity(

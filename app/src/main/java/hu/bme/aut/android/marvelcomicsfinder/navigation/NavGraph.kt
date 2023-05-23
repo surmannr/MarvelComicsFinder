@@ -32,9 +32,13 @@ fun NavGraph(
     ) {
         composable(Screen.MarvelComicsList.route) {
             val viewModel = hiltViewModel<MarvelComicsViewModel>()
-            MarvelComicsScreen(onListItemClick = {
-                navController.navigate(Screen.MarvelComicDetail.passId(it))
-            },viewModel)
+            MarvelComicsScreen(
+                onListItemClick = {
+                    navController.navigate(Screen.MarvelComicDetail.passId(it))
+                },
+                viewModel,
+                navController
+            )
         }
         composable(
             route = Screen.MarvelComicDetail.route,
@@ -45,11 +49,21 @@ fun NavGraph(
             )
         ) {
             val viewModel = hiltViewModel<MarvelComicViewModel>()
-            MarvelComicScreen(viewModel)
+            MarvelComicScreen(
+                viewModel,
+                onNavigateBack = {navController.popBackStack()},
+                navController
+            )
         }
         composable(Screen.FavMarvelComicsList.route) {
             val viewModel = hiltViewModel<FavMarvelComicsViewModel>()
-            FavMarvelComicsScreen(viewModel)
+            FavMarvelComicsScreen(
+                viewModel,
+                navController,
+                onListItemClick = {
+                    navController.navigate(Screen.FavMarvelComicDetail.passId(it))
+                },
+            )
         }
         composable(
             route = Screen.FavMarvelComicDetail.route,
@@ -60,11 +74,18 @@ fun NavGraph(
             )
         ) {
             val viewModel = hiltViewModel<FavMarvelComicViewModel>()
-            FavMarvelComicScreen(viewModel)
+            FavMarvelComicScreen(
+                viewModel,
+                onNavigateBack = {navController.popBackStack()},
+                navController
+            )
         }
         composable(Screen.RandomFavMarvelComic.route) {
             val viewModel = hiltViewModel<RandomFavMarvelComicViewModel>()
-            RandomFavMarvelComicScreen(viewModel)
+            RandomFavMarvelComicScreen(
+                viewModel,
+                navController
+            )
         }
     }
 }

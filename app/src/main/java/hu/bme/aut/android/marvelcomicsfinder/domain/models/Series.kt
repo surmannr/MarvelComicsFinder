@@ -8,8 +8,8 @@ data class Series(
 )
 
 fun SeriesEntity.asSeries(): Series = Series(
-    name = name,
-    resourceURI = resourceURI
+    name = name ?: "",
+    resourceURI = resourceURI ?: "",
 )
 
 fun Series.asSeriesEntity(): SeriesEntity = SeriesEntity(

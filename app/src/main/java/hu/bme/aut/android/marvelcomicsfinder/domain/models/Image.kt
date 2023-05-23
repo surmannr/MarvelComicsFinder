@@ -8,8 +8,8 @@ data class Image(
 )
 
 fun ImageEntity.asImage(): Image = Image(
-    extension = extension,
-    path = path
+    extension = extension ?: "",
+    path = path ?: "",
 )
 
 fun Image.asImageEntity(): ImageEntity = ImageEntity(
