@@ -40,11 +40,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.google.firebase.analytics.FirebaseAnalytics
 import hu.bme.aut.android.marvelcomicsfinder.R
 import hu.bme.aut.android.marvelcomicsfinder.feature.favmarvelcomics.list.FavMarvelComicsEvent
 import hu.bme.aut.android.marvelcomicsfinder.ui.common.BottomBar
@@ -53,6 +55,7 @@ import hu.bme.aut.android.marvelcomicsfinder.ui.common.MarvelComicElementUi
 import hu.bme.aut.android.marvelcomicsfinder.ui.common.MarvelListFilterUi
 import hu.bme.aut.android.marvelcomicsfinder.ui.common.MarvelPagerButtons
 import hu.bme.aut.android.marvelcomicsfinder.ui.model.UiEvent
+import hu.bme.aut.android.marvelcomicsfinder.utils.FirebaseExtensions
 import kotlinx.coroutines.launch
 import me.saket.swipe.SwipeAction
 import me.saket.swipe.SwipeableActionsBox
@@ -68,7 +71,7 @@ fun MarvelComicsScreen(
     val state by viewModel.state.collectAsStateWithLifecycle()
 
     val hostState = remember { SnackbarHostState() }
-
+    val context = LocalContext.current
     val scope = rememberCoroutineScope()
 
     var titleStartWithValue by remember { mutableStateOf("") }
@@ -175,6 +178,15 @@ fun MarvelComicsScreen(
                                         background = Color.Red,
                                         onSwipe = {
                                             viewModel.onEvent(MarvelComicsEvent.AddFavourite(comic))
+                                            FirebaseExtensions.logAnalytics(
+                                                eventName = FirebaseExtensions.ADD_FAVOURITE,
+                                                bundleProperties = mapOf(
+                                                    "screen" to "Kezdolap",
+                                                    "id" to comic.id,
+                                                    "title" to comic.title
+                                                ),
+                                                context = context
+                                            )
                                         }
                                     )
                                 ),

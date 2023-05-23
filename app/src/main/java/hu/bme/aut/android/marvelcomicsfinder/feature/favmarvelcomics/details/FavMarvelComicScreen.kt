@@ -29,6 +29,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
@@ -37,6 +38,7 @@ import hu.bme.aut.android.marvelcomicsfinder.ui.common.BottomBar
 import hu.bme.aut.android.marvelcomicsfinder.ui.common.MarvelAppBar
 import hu.bme.aut.android.marvelcomicsfinder.ui.model.MarvelComicDetailUI
 import hu.bme.aut.android.marvelcomicsfinder.ui.model.UiEvent
+import hu.bme.aut.android.marvelcomicsfinder.utils.FirebaseExtensions
 import kotlinx.coroutines.launch
 
 @ExperimentalMaterial3Api
@@ -49,7 +51,7 @@ fun FavMarvelComicScreen(
     val state by viewModel.state.collectAsStateWithLifecycle()
 
     val hostState = remember { SnackbarHostState() }
-
+    val context = LocalContext.current
     val scope = rememberCoroutineScope()
 
     var dialogOpen by remember {
@@ -103,6 +105,15 @@ fun FavMarvelComicScreen(
                     TextButton(
                         onClick = {
                             viewModel.removeFavourite(state.marvelComic!!)
+                            FirebaseExtensions.logAnalytics(
+                                eventName = FirebaseExtensions.REMOVE_FAVOURITE,
+                                bundleProperties = mapOf(
+                                    "screen" to "KedvencReszletek",
+                                    "id" to state.marvelComic!!.id,
+                                    "title" to state.marvelComic!!.title
+                                ),
+                                context = context
+                            )
                             navController.navigate(Screen.FavMarvelComicsList.route)
                             dialogOpen = false
                         }

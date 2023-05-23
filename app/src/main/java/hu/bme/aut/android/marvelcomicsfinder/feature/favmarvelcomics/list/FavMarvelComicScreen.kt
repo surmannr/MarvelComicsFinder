@@ -1,5 +1,6 @@
 package hu.bme.aut.android.marvelcomicsfinder.feature.favmarvelcomics.list
 
+import android.os.Bundle
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
@@ -33,6 +34,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -45,6 +47,7 @@ import hu.bme.aut.android.marvelcomicsfinder.ui.common.MarvelComicElementUi
 import hu.bme.aut.android.marvelcomicsfinder.ui.common.MarvelListFilterUi
 import hu.bme.aut.android.marvelcomicsfinder.ui.common.MarvelPagerButtons
 import hu.bme.aut.android.marvelcomicsfinder.ui.model.UiEvent
+import hu.bme.aut.android.marvelcomicsfinder.utils.FirebaseExtensions
 import kotlinx.coroutines.launch
 import me.saket.swipe.SwipeAction
 import me.saket.swipe.SwipeableActionsBox
@@ -59,7 +62,7 @@ fun FavMarvelComicsScreen(
     val state by viewModel.state.collectAsStateWithLifecycle()
 
     val hostState = remember { SnackbarHostState() }
-
+    val context = LocalContext.current
     val scope = rememberCoroutineScope()
 
     var titleStartWithValue by remember { mutableStateOf("") }
@@ -166,6 +169,15 @@ fun FavMarvelComicsScreen(
                                         background = Color.Red,
                                         onSwipe = {
                                             viewModel.onEvent(FavMarvelComicsEvent.DeleteFavourite(comic))
+                                            FirebaseExtensions.logAnalytics(
+                                                eventName = FirebaseExtensions.REMOVE_FAVOURITE,
+                                                bundleProperties = mapOf(
+                                                    "screen" to "KedvencListak",
+                                                    "id" to comic.id,
+                                                    "title" to comic.title
+                                                ),
+                                                context = context
+                                            )
                                         }
                                     )
                                 ),

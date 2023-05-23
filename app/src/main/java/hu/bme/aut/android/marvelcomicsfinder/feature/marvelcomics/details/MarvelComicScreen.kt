@@ -33,6 +33,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
@@ -41,6 +42,7 @@ import hu.bme.aut.android.marvelcomicsfinder.ui.common.BottomBar
 import hu.bme.aut.android.marvelcomicsfinder.ui.common.MarvelAppBar
 import hu.bme.aut.android.marvelcomicsfinder.ui.model.MarvelComicDetailUI
 import hu.bme.aut.android.marvelcomicsfinder.ui.model.UiEvent
+import hu.bme.aut.android.marvelcomicsfinder.utils.FirebaseExtensions
 import kotlinx.coroutines.launch
 
 @ExperimentalMaterial3Api
@@ -53,7 +55,7 @@ fun MarvelComicScreen(
     val state by viewModel.state.collectAsStateWithLifecycle()
 
     val hostState = remember { SnackbarHostState() }
-
+    val context = LocalContext.current
     val scope = rememberCoroutineScope()
 
     var dialogOpen by remember {
@@ -159,6 +161,28 @@ fun MarvelComicScreen(
                             modifier = Modifier,
                             comic = state.marvelComic!!,
                             onButtonClick = {
+                                if (!state.isInFavouriteList) {
+                                    FirebaseExtensions.logAnalytics(
+                                        eventName = FirebaseExtensions.ADD_FAVOURITE,
+                                        bundleProperties = mapOf(
+                                            "screen" to "Reszletek",
+                                            "id" to state.marvelComic!!.id,
+                                            "title" to state.marvelComic!!.title
+                                        ),
+                                        context = context
+                                    )
+                                } else {
+                                    FirebaseExtensions.logAnalytics(
+                                        eventName = FirebaseExtensions.REMOVE_FAVOURITE,
+                                        bundleProperties = mapOf(
+                                            "screen" to "Reszletek",
+                                            "id" to state.marvelComic!!.id,
+                                            "title" to state.marvelComic!!.title
+                                        ),
+                                        context = context
+                                    )
+                                }
+
                                 dialogOpen = true
                             },
                             buttonText = if (!state.isInFavouriteList) "Kedvencekhez adás" else "Törlés a kedvencek közül"

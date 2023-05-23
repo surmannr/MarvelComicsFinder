@@ -8,7 +8,7 @@ import hu.bme.aut.android.marvelcomicsfinder.data.dao.FavouriteMarvelComicsDao
 import hu.bme.aut.android.marvelcomicsfinder.data.entites.FavouriteMarvelComicsEntity
 
 @TypeConverters(Converters::class)
-@Database(entities = [FavouriteMarvelComicsEntity::class], version = 2, exportSchema = false)
+@Database(entities = [FavouriteMarvelComicsEntity::class], version = 3, exportSchema = false)
 abstract class FavouriteMarvelComicsDatabase : RoomDatabase() {
     abstract val favouriteMarvelComicsDao: FavouriteMarvelComicsDao
 }

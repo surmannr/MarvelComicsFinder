@@ -78,7 +78,7 @@ fun MarvelComicDetailUI(
                 modifier = modifier
                     .padding(10.dp)
             ) {
-                val description = comic.description.isEmpty()
+                val description = comic.description?.isEmpty() ?: false
                 Text(
                     text = "Leírás:",
                     fontSize = 18.sp,
@@ -88,7 +88,7 @@ fun MarvelComicDetailUI(
                     color = MaterialTheme.colorScheme.secondary
                 )
                 Text(
-                    text = if (!description) comic.description else "Nincs",
+                    text = if (!description) comic.description ?: "Nincs" else "Nincs",
                     fontSize = 16.sp,
                     modifier = modifier,
                     color = MaterialTheme.colorScheme.secondary

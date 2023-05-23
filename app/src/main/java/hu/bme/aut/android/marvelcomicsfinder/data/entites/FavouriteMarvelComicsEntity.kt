@@ -16,7 +16,7 @@ data class FavouriteMarvelComicsEntity(
     ),
     @Embedded(prefix = "creators_favcomicsentity") val creators: CreatorsEntity? = null,
     @Embedded(prefix = "date_favcomicsentity") val dates: DateEntityList = DateEntityList(emptyList()),
-    val description: String = "",
+    val description: String? = "",
     val diamondCode: String= "",
     val digitalId: String= "",
     val ean: String= "",
