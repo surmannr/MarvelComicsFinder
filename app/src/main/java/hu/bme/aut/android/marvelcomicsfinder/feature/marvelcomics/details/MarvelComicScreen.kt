@@ -126,10 +126,10 @@ fun MarvelComicScreen(
                     }
                 },
                 title = {
-                    Text(text = "Hozzáadás")
+                    Text(text = if (state.isInFavouriteList) "Törlés" else "Hozzáadás")
                 },
                 text = {
-                    Text(text = "Biztosan hozzá akarod adni a kedvenceidhez?")
+                    Text(text = if (state.isInFavouriteList) "Biztosan törölni szeretnéd?" else "Biztosan hozzá akarod adni a kedvenceidhez?")
                 },
                 modifier = Modifier
                     .fillMaxWidth()
