@@ -137,7 +137,7 @@ fun MarvelComicsScreen(
                 state.marvelComicsList.isNotEmpty() -> {
                     AnimatedVisibility (
                         modifier = Modifier
-                            .weight(3f),
+                            .weight(2.65f),
                         visible = enabledFiltering,
                         enter = fadeIn(),
                         exit = fadeOut()
@@ -167,7 +167,7 @@ fun MarvelComicsScreen(
                     }
                     LazyColumn(
                         modifier = Modifier
-                            .weight(7f)
+                            .weight(6f)
                     ) {
                         items(state.marvelComicsList, itemContent = { comic ->
                             SwipeableActionsBox(
